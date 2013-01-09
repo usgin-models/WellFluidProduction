@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/fluidproduction/1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:gmlsf="http://www.opengis.net/gmlsf" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/fluidproduction/1.1" elementFormDefault="qualified" version="0.01">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
+	<xs:annotation>
+		<!-- This XSD document, including XML schema, indicates the content requested for data collected from production records for production wells for the AASG geothermal data project.  Typically, information includes location information for the borehole or well, production time interval, fluid volume, and source.  The HeaderURI for a particular record is the cross-referencing link (foreign key) used to associate the record with additional information and metadata about the well.  Each record should have a unique ObservationURI. -->
+		<!--This XSD document was created on 2012-12-16 by Celia Coleman, AZGS.  This schema is based on the data available on the NBMG and CADOGGR websites.-->
+		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
+			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
+			<gmlsf:GMLProfileSchema>http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gmlsf:GMLProfileSchema>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="FluidProduction" type="aasg:FluidProductionType" substitutionGroup="gml:_Feature"/>
+	<xs:complexType name="FluidProductionType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="ObservationURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="RecordName" type="xs:string"/>
+					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
+					<xs:element name="Operator" type="xs:string" minOccurs="0"/>
+					<xs:element name="ProducingFeature" type="xs:string" minOccurs="0"/>
+					<xs:element name="HeaderURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="WellName" type="xs:string"/>
+					<xs:element name="APINo" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherID" type="xs:string" minOccurs="0"/>
+					<xs:element name="County" type="xs:string"/>
+					<xs:element name="State" type="xs:string"/>
+					<xs:element name="Field" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0"/>
+					<xs:element name="LatDegree" type="xs:double"/>
+					<xs:element name="LongDegree" type="xs:double"/>
+					<xs:element name="SRS" type="xs:string"/>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0"/>
+					<xs:element name="IntervalStartDateTime" type="xs:string"/>
+					<xs:element name="IntervalEndDateTime" type="xs:string"/>
+					<xs:element name="DurationDays" type="xs:double"/>
+					<xs:element name="Permit" type="xs:string" minOccurs="0"/>
+					<xs:element name="FluidType" type="xs:string"/>
+					<xs:element name="FluidVolume" type="xs:double"/>
+					<xs:element name="FluidVolumeUnits" type="xs:string"/>
+					<xs:element name="Temperature_F" type="xs:double"/>
+					<xs:element name="Pressure_psi" type="xs:double"/>
+					<xs:element name="AggregationType" type="xs:string"/>
+					<xs:element name="MeasurementMethod" type="xs:string"/>
+					<xs:element name="ContactIntervalTop" type="xs:double" minOccurs="0"/>
+					<xs:element name="ContactIntervalBottom" type="xs:double" minOccurs="0"/>
+					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="RelatedResources" type="xs:string" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
