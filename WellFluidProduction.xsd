@@ -3,8 +3,8 @@
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
 	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
 	<xs:annotation>
-		<!-- This XSD document, including XML schema, indicates the content requested for data collected from production records for production wells for the AASG geothermal data project.  Typically, information includes location information for the borehole or well, production time interval, fluid volume, and source.  The HeaderURI for a particular record is the cross-referencing link (foreign key) used to associate the record with additional information and metadata about the well.  Each record should have a unique ObservationURI. -->
-		<!--This XSD document was created on 2012-12-16 by Celia Coleman, AZGS.  This schema is based on the data available on the NBMG and CADOGGR websites.-->
+		<!-- This XSD document, including XML schema, indicates the content requested for data collected from production records for production wells for the AASG geothermal data project. Typically, information includes location information for the borehole or well, production time interval, fluid volume, and source. The HeaderURI for a particular record is the cross-referencing link (foreign key) used to associate the record with additional information and metadata about the well. Each record should have a unique ObservationURI. -->
+		<!--Annotated version 1.1.1. This XSD document was created on 2012-12-16 by Celia Coleman, AZGS. This schema is based on the data available on the NBMG and CADOGGR websites. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS.-->
 		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
 			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
 			<gmlsf:GMLProfileSchema>http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gmlsf:GMLProfileSchema>
@@ -15,59 +15,196 @@
 		<xs:complexContent>
 			<xs:extension base="gml:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Integer record count, added by ArcGIS servers during service deployment; not required but cannot be removed when deploying from ArcGIS feature class. Not user maintained, so this element appears in XML implementation but not in the Content Model Template.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="ObservationURI">
+						<xs:annotation>
+							<xs:documentation>Unique identifier for this observation. This is the identifier (Uniform Resource Identifier) that will be used to cross-reference data, samples, and other observations to the observation represented by this record. Best practice is to define an http URI that will dereference to a normative description of the observation. USGIN URI's may be redirected to any URL using the http://resources.usgin.org redirector; contact the USGIN development team at AZGS for instructions.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="RecordName" type="xs:string"/>
-					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
-					<xs:element name="Operator" type="xs:string" minOccurs="0"/>
-					<xs:element name="ProducingFeature" type="xs:string" minOccurs="0"/>
+					<xs:element name="RecordName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Common or human-readable name by which the feature is known. Recommend using only web-safe characters (a-z A-Z 0-9 _-.) in the name. Be consistent in the naming convention used within any given dataset.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Notes" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Any additional information to be provided, including description and other data not captured by the template, details about collection method, contact information for related parties (original collector, project PI), collection platform or Launch, etc.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Operator" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of company/organization that is operating the well during the reporting period.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProducingFeature" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of producing formation, named reservoir or pool, area, or field over which production is aggregated for this report. If a single well is reported, put 'well' here, and headerURI must be populated.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="HeaderURI">
+						<xs:annotation>
+							<xs:documentation>Unique identifier for the borehole indicated by this record. This identifier should identify the physical well, based on the API number if available. Otherwise, the URI should incorporate one of the OtherID values. Please contact the USGIN development team at AZGS for instructions.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="WellName" type="xs:string"/>
-					<xs:element name="APINo" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherID" type="xs:string" minOccurs="0"/>
-					<xs:element name="County" type="xs:string"/>
-					<xs:element name="State" type="xs:string"/>
-					<xs:element name="Field" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0"/>
-					<xs:element name="LatDegree" type="xs:double"/>
-					<xs:element name="LongDegree" type="xs:double"/>
-					<xs:element name="SRS" type="xs:string"/>
-					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0"/>
-					<xs:element name="IntervalStartDateTime" type="xs:string"/>
-					<xs:element name="IntervalEndDateTime" type="xs:string"/>
-					<xs:element name="DurationDays" type="xs:double"/>
-					<xs:element name="Permit" type="xs:string" minOccurs="0"/>
-					<xs:element name="FluidType" type="xs:string"/>
-					<xs:element name="FluidVolume" type="xs:double"/>
-					<xs:element name="FluidVolumeUnits" type="xs:string"/>
-					<xs:element name="Temperature_F" type="xs:double"/>
-					<xs:element name="Pressure_psi" type="xs:double"/>
-					<xs:element name="AggregationType" type="xs:string"/>
-					<xs:element name="MeasurementMethod" type="xs:string"/>
-					<xs:element name="ContactIntervalTop" type="xs:double" minOccurs="0"/>
-					<xs:element name="ContactIntervalBottom" type="xs:double" minOccurs="0"/>
-					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="WellName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Common or human-readable name by which the feature is known. Recommend using only web-safe characters (a-z A-Z 0-9 _-.) in the name. Be consistent in the naming convention used within any given dataset.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="APINo" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>API number for the the wellbore/borehole identified by the HeaderURI. If an API number is unavailable this field is empty. Usage of hyphens is optional, according to standard practice in each state. API number refers to the American Petroleum Institute number. Each oil, gas, or geothermal well drilled in the United States has a unique API number; this number identifies all boreholes or recompletions associated with the original wellbore. See http://www.spwla.org/technical/api-technical for more information about API numbering.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Alternative identifier(s) for the feature. Indicate the authority from which the OtherID is derived with a short (lower case) prefix delimited by a colon ':' If identifiers from multiple different authorities are available, delimit these identifiers with the pipe '|' character. For example, if a well were known to the Arizona Geological Survey (AZGS) by the id number 1337, the prefix would be azgs: and the identifier string would be azgs:1337. Any such prefixes used to scope identifiers should be explained in the dataset metadata.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="County" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Required. County name. If unknown or not applicable use 'missing'. If offshore, specify 'offshore' in this field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="State" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Required. State name without abbreviations. If unknown or not applicable use 'missing'. For offshore locations, specify the governing or nearest state and list the county as 'offshore'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Field" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of the field in which the borehole is located. If multiple names are or have been used for the field, separate values with a pipe  '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Names of geographic features associated with the site that will be useful as search criteria to locate the information for this site. If identifiers from multiple different authorities are available, delimit these identifiers with the pipe character '|'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LatDegree" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Latitude coordinate for the surface location of the feature (use center point for areas); values should be provided with at least 4 significant digits for sufficient precision (7 decimal places is recommended by the USGS (OFR 02-463, p. 6). Use decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LongDegree" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Longitude coordinate for the surface location of the feature (use center point for areas); values should be provided with at least 4 significant digits for sufficient precision (7 decimal places is recommended by the USGS (OFR 02-463, p. 6). Use decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SRS" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The spatial reference system. It is recommended that an EPSG code be used to identify the SRS used to specify the location.  If an EPSG code is used, identify it as such with the prefix 'EPSG:' For common EPSG codes, see the Data Valid Terms tab. EPSG:4326 is the identifier for WGS84, and should be the text in this field. EPSG stands for European Petroleum Survey Group. EPSSG codes can be dereferenced by putting the code in this URL (replace 4326) http://spatialreference.org/ref/epsg/4326/.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Information on how the original location was determined, e.g.: 1:250,000 map, gps unit, Google Earth, PLSS Conversion, Spatial Datum Conversion, e.g., NAD27 to WGS84.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IntervalStartDateTime" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Start date and time for the production interval. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1', (or '1/1/', or '1-1-', or 'January 1,'). All dates will be converted to yyyy-mm-ddThh:mm.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IntervalEndDateTime" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>End date and time for the production interval. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1', (or '1/1/', or '1-1-', or 'January 1,'). All dates will be converted to yyyy-mm-ddThh:mm.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DurationDays" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Duration of production interval described by this record. For interoperability, this interval should be reported in decimal days.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Permit" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Permit for the fluid transfer activity during this reporting interval. Provide sufficient information to uniquely identify the permit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FluidType" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Please use Commodity of Interest vocabulary; if multiple fluids produced or injected during reported interval, separate with a pipe '|' character .</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FluidVolume" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Total fluid volume produced by the well during this reported production interval.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FluidVolumeUnits" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Unit of measurement used; for liquids the preference is 'gallon'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Temperature_F" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Average temperature, in decimal format, of the fluid produced by the well over the course of this production interval. Use Fahrenheit units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pressure_psi" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Report the pressure of fluid; measurement method should specify wellhead, formation, or other pressure measurement; aggregationType reports whether this measurement is an average, peak, spot, etc. Nillable.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AggregationType" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Term that specifies the method for recording the interval for temperature and pressure, e.g. minimum, maximum, average, spot.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MeasurementMethod" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ContactIntervalTop" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Top of interval in well from which fluid is produced.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ContactIntervalBottom" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Bottom of interval in well from which fluid is produced.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Source" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Mandatory. Short text explanation of source of information defining this feature; may be author-date type citation, but should include some indication of how digital data originated. If unpublished data, provide researcher name, date and research institution for proper citation. Separate multiple citations with pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>URI identifying (and ideally dereferencing to get) a full formal metadata record for the observation report. A time series of observations may all reference the same metadata record that provides contact information and details on procedure, etc.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="RelatedResources" type="xs:string" minOccurs="0"/>
-					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:element name="RelatedResources" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>This may be one to many http links to resources (logs, pictures or other documents if available online. Should be an http:// address (URL)) related to the observation described in each record. Delimit multiple values with the pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Shape" type="gml:PointPropertyType">
+						<xs:annotation>
+							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
+						</xs:annotation>
+						</xs:element>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
